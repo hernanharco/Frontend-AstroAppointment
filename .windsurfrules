@@ -1,0 +1,37 @@
+# Reglas del Proyecto: Infraestructura SaaS Modular
+
+## Gestión de Paquetes
+- Siempre utiliza 'pnpm' para instalar dependencias, ejecutar scripts y gestionar el proyecto de Next.js.
+- No utilices 'npm' ni 'yarn'.
+- Si ves un archivo 'package-lock.json', bórralo inmediatamente y asegúrate de que exista 'pnpm-lock.yaml'.
+
+## Arquitectura y Frontend (Next.js)
+- El proyecto sigue una estructura de SaaS Modular para negocios locales.
+- Frontend: Next.js (App Router) desplegado en Vercel.
+- Estilo: Tailwind CSS.
+- Prioriza la reutilización de componentes en la carpeta 'src/components'.
+
+## Backend y Dominio (Python)
+- **Relacional (PostgreSQL/Neon):** Úsala para lógica de negocio compleja: citas, pedidos, estados, clientes y sistemas multi-tenant.
+- **No-Relacional (MongoDB):** Úsala para proyectos de diseño web sencillos, gestión de contenido dinámico (CMS), edición de textos e imágenes, o donde la estructura de datos sea muy variable.
+- Los dominios deben ser independientes y configurables, no forks de código.
+
+## Seguridad y Flujo
+- Autenticación: Basada en cookies httpOnly.
+- CORS: Explícito por entorno.
+- Desarrollo: Optimizado para Linux.
+- Principio Rector: "Menos infraestructura, más valor entregado". Evita soluciones complejas si no son necesarias para la escala actual.
+
+# Reglas para Docker y Despliegue (setup.sh)
+
+- Al crear un 'Dockerfile', optimízalo para el entorno detectado (multi-stage builds para producción).
+- Siempre que se pida un 'setup.sh', el script debe aceptar un argumento de entorno (ej: './setup.sh production' o './setup.sh development').
+- El 'setup.sh' debe configurar variables de entorno, instalar dependencias con 'pnpm' y preparar los contenedores de Docker según el modo elegido.
+
+## Preferencias de Ejecución y Autonomía
+- Prioriza la ejecución directa de cambios y comandos.
+- Cuando realices tareas de creación de infraestructura (como mkdir, touch, o escritura de archivos), intenta completar el proceso de forma continua.
+- Evita detenerte para pedir confirmaciones en tareas rutinarias de desarrollo; asume que tienes permiso para aplicar cambios en el código y en la estructura de archivos del backend.
+- No detengas el flujo de trabajo para pedir confirmación al crear archivos nuevos o modificar archivos existentes dentro de los dominios 'services' y 'business_hours'.
+- Se asume que el usuario ha dado permiso total para sobrescribir y crear archivos en la ruta del proyecto /backendcitas y /frontend para agilizar la iteración.
+- Si una tarea implica múltiples archivos, escríbelos todos de forma secuencial sin esperar interacciones manuales.

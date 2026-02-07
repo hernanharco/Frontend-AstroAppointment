@@ -1,0 +1,20 @@
+---
+// Parte 1: El Frontmatter (se ejecuta en el servidor)
+import Layout from '@/layouts/Layout.astro';
+import AppointmentDashboard from '@/components/appoinment/AppointmentDashboard';
+
+// Aquí podrías traer datos de tu base de datos PostgreSQL (Neon) en el futuro
+---
+
+<Layout title="Dashboard de Citas | SaaS Modular">
+  <main class="p-4 sm:p-8">
+    <div class="max-w-7xl mx-auto">
+      <AppointmentDashboard client:load />
+    </div>
+  </main>
+</Layout>
+
+<!-- client:load | Carga el JS inmediatamente al abrir la página.	Para componentes críticos como esta Agenda.
+client:idle |	Carga el JS cuando el navegador esté libre.	Para algo que no es urgente (un chat de soporte abajo).
+client:visible |	El JS solo se carga cuando el usuario hace scroll y llega al componente.	Para un gráfico pesado que está al final de la página.
+client:only="react" |	Salta el renderizado del servidor.	Solo si el componente usa cosas que no existen en el servidor (como window o localStorage). -->

@@ -1,0 +1,29 @@
+---
+// IMPORTANTE: Añade esta línea para cargar los estilos
+import '@/styles/global.css';
+
+import Footer from '@/components/Footer.astro';
+//import Header from '@/components/Header.astro';
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- <Header /> -->
+    <slot />
+    <Footer />
+  </body>
+</html>
